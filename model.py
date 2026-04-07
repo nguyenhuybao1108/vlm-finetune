@@ -17,8 +17,7 @@ def load_model_and_processor():
     model = Qwen2VLForConditionalGeneration.from_pretrained(
         MODEL_ID,
         torch_dtype=torch.bfloat16,
-        device_map="auto",
-        attn_implementation="flash_attention_2"  # Fast attention
+        device_map="auto"
     )
 
     return model, processor
