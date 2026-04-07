@@ -1,5 +1,5 @@
 import torch
-from transformers import Qwen2VLForConditionalGeneration, AutoProcessor, BitsAndBytesConfig
+from transformers import Qwen2VLForConditionalGeneration, AutoProcessor
 from peft import LoraConfig, get_peft_model
 
 MODEL_ID = "Qwen/Qwen2-VL-7B-Instruct"
@@ -13,18 +13,12 @@ def load_model_and_processor():
         max_pixels=1280 * 28 * 28
     )
 
-    # Configure 4-bit quantization
-    bnb_config = BitsAndBytesConfig(
-        load_in_4bit=True,
-        bnb_4bit_quant_type="nf4",
-        bnb_4bit_compute_dtype=torch.bfloat16,
-        bnb_4bit_use_double_quant=True
-    )
-
+    # Load in bfloat16 for memory efficiency (no 4-bit due to kernel issues)
     model = Qwen2VLForConditionalGeneration.from_pretrained(
         MODEL_ID,
-        quantization_config=bnb_config,
-        device_map="auto"
+        torch_dtype=torch.bfloat16,
+        device_map="auto",
+        attn_implementation="flash_attention_2"  # Fast attention
     )
 
     return model, processor
