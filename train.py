@@ -23,9 +23,9 @@ def main():
         per_device_train_batch_size=1,      # 7B heavy, batch=1
         gradient_accumulation_steps=8,      # effective batch = 8
         learning_rate=2e-4,
-        warmup_ratio=0.05,
+        warmup_steps=500,
         lr_scheduler_type="cosine",
-        bf16=True,                          # bf16 for 7B, don't use fp16
+        fp16=True,                          # Use fp16 (broader GPU support)
         logging_steps=10,
         save_steps=200,
         eval_steps=200,
