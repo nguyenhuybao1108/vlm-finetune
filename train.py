@@ -33,7 +33,6 @@ def main():
         save_total_limit=3,
         remove_unused_columns=False,        # important for VLM
         dataloader_num_workers=8,           # More workers for faster loading
-        pin_memory=False,                   # Disable pin_memory warning
         report_to="none"                    # change to "wandb" for tracking
     )
 
