@@ -20,19 +20,20 @@ def main():
     training_args = TrainingArguments(
         output_dir="./checkpoints/pathvqa-qwen2vl",
         num_train_epochs=1,
-        per_device_train_batch_size=1,      # 7B heavy, batch=1
-        gradient_accumulation_steps=8,      # effective batch = 8
+        per_device_train_batch_size=2,      # Increase batch size for RTX 5090 (32GB)
+        gradient_accumulation_steps=4,      # effective batch = 8 (same as before)
         learning_rate=2e-4,
         warmup_steps=500,
         lr_scheduler_type="cosine",
-        fp16=True,                          # Use fp16 (broader GPU support)
+        fp16=True,                          # Use fp16
         logging_steps=10,
         save_steps=200,
         eval_steps=200,
         eval_strategy="steps",
         save_total_limit=3,
         remove_unused_columns=False,        # important for VLM
-        dataloader_num_workers=4,
+        dataloader_num_workers=8,           # More workers for faster loading
+        pin_memory=False,                   # Disable pin_memory warning
         report_to="none"                    # change to "wandb" for tracking
     )
 
