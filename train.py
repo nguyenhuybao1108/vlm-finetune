@@ -29,7 +29,7 @@ def main():
         logging_steps=10,
         save_steps=200,
         eval_steps=200,
-        evaluation_strategy="steps",
+        eval_strategy="steps",
         save_total_limit=3,
         remove_unused_columns=False,        # important for VLM
         dataloader_num_workers=4,
