@@ -2,7 +2,7 @@ import torch
 from transformers import Qwen2VLForConditionalGeneration, AutoProcessor
 from peft import LoraConfig, get_peft_model
 
-MODEL_ID = "HuggingFaceTB/SmolVLM-Instruct"
+MODEL_ID = "Qwen/Qwen2-VL-7B-Instruct"
 
 
 def load_model_and_processor():
