@@ -9,6 +9,11 @@ def main():
     # ── 1. Load data ───────────────────────────────────────
     print("Loading dataset...")
     ds = load_pathvqa()
+
+    # Test with small subset (100 rows)
+    ds["train"] = ds["train"].select(range(min(100, len(ds["train"]))))
+    ds["validation"] = ds["validation"].select(range(min(20, len(ds["validation"]))))
+
     print(f"Train: {len(ds['train'])} | Val: {len(ds['validation'])}")
 
     # ── 2. Load model ──────────────────────────────────────
